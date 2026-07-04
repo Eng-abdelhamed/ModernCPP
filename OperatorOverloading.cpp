@@ -21,7 +21,8 @@ class complex{
      friend complex operator+(complex c1 , complex c2);
      friend complex operator-(complex c1, complex c2);
      friend complex operator*(complex c1, complex c2);
-     friend std::ostream &operator<<(std::ostream &o ,complex c1);
+     friend std::ostream &operator<<(std::ostream &o ,complex &c1);
+     friend std::istream& operator>>(std::istream &o ,complex &c1);
 
          void add(complex c)
      {
@@ -59,10 +60,15 @@ complex operator*(complex c1, complex c2)
     t.img = c1.img * c2.img;
     return t;
 }
-std::ostream &operator<<(std::ostream &o, complex c1)
+std::ostream &operator <<(std::ostream &o, complex &c1)
 {
     o << c1.real << "+" << c1.img << "I" << std::endl ;
     return o;
+}
+std::istream &operator >>(std::istream &i, complex &c1)
+{
+    i >> c1.real >> c1.img ;
+    return i;
 }
 int main()
 {
@@ -73,6 +79,13 @@ int main()
     complex b = c1 - c2;
     complex t = c1 * c2;
 
-    std::cout<<c1;
+    complex c4;
+    std::cout << "Enter Real:Img" <<std::endl;
+    std::cin >> c4;
+    c1 = c2 + c4;
+
+    std::cout<< c1;
+    std::cout<< c2;
+    std::cout<< c4;
     return 0;
 }
