@@ -26,8 +26,7 @@ jobs:
 
       - name: Test formatting
         run: |
-          
-          find .  -name "*.hpp" -o -name "*.cpp" | clang-format --dry-run --Werror
+         find . \( -name "*.hpp" -o -name "*.cpp" \) -exec clang-format --dry-run --Werror {} +
 
       - name: Testing The cmake
         run: |
