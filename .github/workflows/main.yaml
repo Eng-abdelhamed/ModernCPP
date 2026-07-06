@@ -37,8 +37,9 @@ jobs:
       - name: Testing The cmake
         run: |
           echo "Testing CMake build..."
+          cd 'Copy and Move'
           mkdir build
           cd build
-          cmake -S 'Copy and Move'/CMakelists.txt -B . -G "Ninja" -DCMAKE_BUILD_TYPE=Release
+          cmake -S .. -B . -G "Ninja" -DCMAKE_BUILD_TYPE=Release
           cmake --build .
 
