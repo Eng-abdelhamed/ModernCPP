@@ -33,6 +33,6 @@ jobs:
           echo "Testing CMake build..."
           mkdir build
           cd build
-          cmake .. -G "Ninja" -DCMAKE_BUILD_TYPE=Release
+          cmake --S ../'Copy and Move'/CMakelists.txt -B . -G "Ninja" -DCMAKE_BUILD_TYPE=Release
           cmake --build .
 
