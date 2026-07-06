@@ -42,4 +42,5 @@ jobs:
           cd build
           cmake -S .. -B . -G "Ninja" -DCMAKE_BUILD_TYPE=Release
           cmake --build .
+          ./olas
 
