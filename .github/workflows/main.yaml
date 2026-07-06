@@ -27,9 +27,8 @@ jobs:
       - name: Test formatting
         run: |
           echo "Testing Code Style..."
-          find . \( -name "*.h" -o -name "*.cpp" \) | xargs clang-format --dry-run --Werror
+          find .  -name "*.hpp" -o -name "*.cpp" | xargs clang-format --dry-run --Werror
 
-      
       - name: Testing The cmake
         run: |
           echo "Testing CMake build..."
