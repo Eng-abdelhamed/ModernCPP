@@ -2,42 +2,39 @@ name: Testing The Cpp Code
 
 on:
   push:
-    branches: ["Tensor/**","main"]
+    branches: ["Tensor/**", "main"]
   pull_request:
-    branches: ["main","Tensor/**"]
+    branches: ["main", "Tensor/**"]
 
 jobs:
   run-and-test:
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
       
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      # GitHub Actions example:
-        - name: Setup Cpp
-          uses: aminya/setup-cpp@v1
-          with:
-           compiler: llvm
-           vcvarsall: true
-           cmake: true
-           ninja: true
-           vcpkg: true
 
-        - name: Test formating
-          run: |
-            echo "Testing "
+      - name: Setup Cpp
+        uses: aminya/setup-cpp@v1
+        with:
+          compiler: llvm
+          vcvarsall: true
+          cmake: true
+          ninja: true
+          vcpkg: true
 
-            find . -name "*.h" -name "*.cpp" | clang-format --dry-run --Werror
+      - name: Test formatting
+        run: |
+          echo "Testing Code Style..."
+          find . \( -name "*.h" -o -name "*.cpp" \) | xargs clang-format --dry-run --Werror
 
-         - name: Testing The cmake
-           run: |
-             echo "Testing Cmake file"
-             mkdir build
-             cd build
-             cmake .. -G "Ninja" -DCMAKE_BUILD_TYPE=Release
-             cmake --build .
-         
-         
+      
+      - name: Testing The cmake
+        run: |
+          echo "Testing CMake build..."
+          mkdir build
+          cd build
+          cmake .. -G "Ninja" -DCMAKE_BUILD_TYPE=Release
+          cmake --build .
 
-    
