@@ -1,0 +1,43 @@
+name: Testing The Cpp Code
+
+on:
+  push:
+    branches: ["Tensor/**","main"]
+  pull_request:
+    branches: ["main","Tensor/**"]
+
+jobs:
+  run-and-test:
+      runs-on: ubuntu-latest
+      
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v5
+
+      # GitHub Actions example:
+        - name: Setup Cpp
+          uses: aminya/setup-cpp@v1
+          with:
+           compiler: llvm
+           vcvarsall: true
+           cmake: true
+           ninja: true
+           vcpkg: true
+
+        - name: Test formating
+          run: |
+            echo "Testing "
+
+            find . -name "*.h" -name "*.cpp" | clang-format --dry-run --Werror
+
+         - name: Testing The cmake
+           run: |
+             echo "Testing Cmake file"
+             mkdir build
+             cd build
+             cmake .. -G "Ninja" -DCMAKE_BUILD_TYPE=Release
+             cmake --build .
+         
+         
+
+    
