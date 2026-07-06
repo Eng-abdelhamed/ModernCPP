@@ -9,11 +9,21 @@ on:
 jobs:
   run-and-test:
     runs-on: ubuntu-latest
-      
+    strategy:
+      matrix:
+        path:
+          - 'CMAKE1'
+          - 'operatorOverloading'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
+      
+      - name: Run clang-format style check for C/C++/Protobuf programs.
+        uses: jidicula/clang-format-action@v4.18.0
+        with:
+          clang-format-version: '18'
+          check-path: ${{ matrix.path }}
+          fallback-style: 'Mozilla' # optional
 
       - name: Setup Cpp
         uses: aminya/setup-cpp@v1
@@ -24,9 +34,6 @@ jobs:
           ninja: true
           vcpkg: true
 
-      - name: Test formatting
-        run: |
-         find . \( -name "*.hpp" -o -name "*.cpp" \) -exec clang-format --dry-run --Werror {} +
 
       - name: Testing The cmake
         run: |
